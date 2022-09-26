@@ -1,7 +1,6 @@
 document
         .querySelector('#create')
         .addEventListener('click', create);
-
 function create(){
     let display = document.createElement('div');
     display.className = 'display';
@@ -16,10 +15,10 @@ function create(){
     feed.innerHTML = 'Покормить';
     display.append(feed);
     
-    const span = document.createElement('span');
-    span.className = 'span';
-    span.innerHTML = 'HP: 100';
-    blocInfo.append(span);
+    const line = document.createElement('div');
+    line.className = 'line';
+   // line.innerHTML = 'HP: 100';
+    blocInfo.append(line);
 
     const image = document.createElement('img');
     image.className = 'image';
@@ -31,23 +30,26 @@ function create(){
         let healthy = 100;
         feed.addEventListener('click', eat);
         function eat(){
-            healthy = healthy + 20;
-            if (healthy > 80){
-                healthy = 100;
+            if(healthy>0){
+                healthy = healthy + 20;
+                if (healthy > 80){
+                    healthy = 100;
+                }
             }
-            span.innerHTML = `HP: ${healthy}`;
+            
+            line.style.width=healthy+'px';
         }
         return  function (){
             if (healthy > 0){
-                healthy = healthy - 1;
-                span.innerHTML = `HP: ${healthy}`;
+                healthy = healthy -0.1;
+                line.style.width=healthy+'px';
             }
             else{
-                blocInfo.append('icons/Sorry.png')
+                image.src='icons/Sorry.png';
             }
         }             
     }
-    const firstInterval = setInterval(health(), 1000);
+    const firstInterval = setInterval(health(), 10);
 }
 
 function getImage(){
